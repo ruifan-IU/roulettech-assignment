@@ -2,6 +2,7 @@ import { useState } from 'react';
 import api from '../api';
 import { useNavigate } from 'react-router-dom';
 import { ACCESS_TOKEN, REFRESH_TOKEN } from '../constants';
+import LoadingIndicator from './LoadingIndicator';
 import '../styles/Form.css';
 
 function Form({ type }) {
@@ -53,9 +54,19 @@ function Form({ type }) {
         placeholder='Password'
         onChange={handleChange}
       />
+      {loading && <LoadingIndicator />}
       <button className='form-button' type='submit'>
         {method}
       </button>
+      {type === 'register' ? (
+        <p>
+          Already have an account? <a href='/login'>Login</a>
+        </p>
+      ) : (
+        <p>
+          Don't have an account? <a href='/register'>Register</a>
+        </p>
+      )}
     </form>
   );
 }
