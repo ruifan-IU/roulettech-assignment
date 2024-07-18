@@ -1,52 +1,81 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import generics
-from .serializers import UserSerializer, ProfileSerializer, QuizScoreSerializer
+from .serializers import UserSerializer, NoteSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
-from .models import Profile, QuizScore
-# Create your views here.
+from .models import Note
 
-class CreateScoreList(generics.ListCreateAPIView):
-    queryset = QuizScore.objects.all()
-    serializer_class = QuizScoreSerializer
-    permission_classes = [IsAuthenticated]
-    
+
+class NoteListCreate(generics.ListCreateAPIView):
+    serializer_class = NoteSerializer
+    permission_classes = [AllowAny]
+
     def get_queryset(self):
-        return self.queryset.all()
-      
+        user = self.request.user
+        return Note.objects.filter(author=user)
+
     def perform_create(self, serializer):
-      if serializer.is_valid():
-        serializer.save(user=self.request.user)
-      else:
-        print(serializer.errors)
+        if serializer.is_valid():
+            serializer.save(author=self.request.user)
+        else:
+            print(serializer.errors)
 
-class ScoreUpdate(generics.RetrieveUpdateDestroyAPIView):
-    serializer_class = QuizScoreSerializer
-    permission_classes = [IsAuthenticated]
-    
-    def get_queryset(self):
-        return QuizScore.objects.filter(user=self.request.user)
-      
-    def perform_update(self, serializer):
-      if serializer.is_valid():
-        serializer.save(user=self.request.user)
-      else:
-        print(serializer.errors)
 
-class CreateMyProfile(generics.CreateAPIView):
-    serializer_class = ProfileSerializer
+class NoteDelete(generics.DestroyAPIView):
+    serializer_class = NoteSerializer
     permission_classes = [IsAuthenticated]
-    
+
     def get_queryset(self):
-        return Profile.filter(user=self.request.user)
-    
-    def perform_create(self, serializer):
-      if serializer.is_valid():
-        serializer.save(user=self.request.user)
-      else:
-        print(serializer.errors)
-      
+        user = self.request.user
+        return Note.objects.filter(author=user)
+
+
 class CreateUserView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = UserSerializer
     permission_classes = [AllowAny]
+
+# class CreateScoreList(generics.ListCreateAPIView):
+#     queryset = QuizScore.objects.all()
+#     serializer_class = QuizScoreSerializer
+#     permission_classes = [IsAuthenticated]
+    
+#     def get_queryset(self):
+#         return self.queryset.all()
+      
+#     def perform_create(self, serializer):
+#       if serializer.is_valid():
+#         serializer.save(user=self.request.user)
+#       else:
+#         print(serializer.errors)
+
+# class ScoreUpdate(generics.RetrieveUpdateDestroyAPIView):
+#     serializer_class = QuizScoreSerializer
+#     permission_classes = [IsAuthenticated]
+    
+#     def get_queryset(self):
+#         return QuizScore.objects.filter(user=self.request.user)
+      
+#     def perform_update(self, serializer):
+#       if serializer.is_valid():
+#         serializer.save(user=self.request.user)
+#       else:
+#         print(serializer.errors)
+
+# class CreateMyProfile(generics.CreateAPIView):
+#     serializer_class = ProfileSerializer
+#     permission_classes = [IsAuthenticated]
+    
+#     def get_queryset(self):
+#         return Profile.filter(user=self.request.user)
+    
+#     def perform_create(self, serializer):
+#       if serializer.is_valid():
+#         serializer.save(user=self.request.user)
+#       else:
+#         print(serializer.errors)
+      
+# class CreateUserView(generics.CreateAPIView):
+#     queryset = User.objects.all()
+#     serializer_class = UserSerializer
+#     permission_classes = [AllowAny]
