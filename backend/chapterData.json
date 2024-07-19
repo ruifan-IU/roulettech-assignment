@@ -1,0 +1,23 @@
+[
+  {
+    "model": "api.chapter",
+    "pk": 1,
+    "fields": {
+      "title": "學而"
+    }
+  },
+  {
+    "model": "api.chapter",
+    "pk": 2,
+    "fields": {
+      "title": "為政"
+    }
+  },
+  {
+    "model": "api.chapter",
+    "pk": 3,
+    "fields": {
+      "title": "八佾"
+    }
+  }
+]

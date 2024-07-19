@@ -2,7 +2,8 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("notes/", views.NoteListCreate.as_view(), name="note-list"),
-    path("notes/delete/<int:pk>/", views.NoteDelete.as_view(), name="delete-note"),
+    path("home/", views.ChapterListCreate.as_view(), name="note-list"),
+    path("chapter/<int:chapter_pk>", views.ParagraphListCreate.as_view(), name="paragraph-list"),
+    path("paragraph/<int:paragraph_pk>", views.TranslationListCreate.as_view(), name="translation-list"),
 ]
 

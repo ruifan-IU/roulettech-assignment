@@ -1,23 +1,23 @@
 import { useState, useEffect } from 'react';
 import api from '../api';
-import Note from '../components/Note';
+import Chapter from '../components/Chapter';
 import '../styles/Home.css';
 
 function Home() {
-  const [notes, setNotes] = useState([]);
+  const [chapterList, setChapterList] = useState([]);
   const [title, setTitle] = useState('');
   const [content, setContent] = useState('');
 
   useEffect(() => {
-    getNote();
+    getChapterList();
   }, []);
 
-  const getNote = () => {
+  const getChapterList = () => {
     api
-      .get('/api/notes/')
+      .get('/api/home/')
       .then((res) => res.data)
       .then((data) => {
-        setNotes(data);
+        setChapterList(data);
         console.log(data);
       })
       .catch((err) => alert(err));
@@ -29,7 +29,7 @@ function Home() {
       .then((res) => {
         if (res.status === 204) {
           alert('Note deleted successfully');
-          getNote();
+          getChapterList();
         } else {
           alert('Failed to delete note');
         }
@@ -39,10 +39,10 @@ function Home() {
 
   const createNote = (e) => {
     e.preventDefault();
-    api.post('/api/notes/', { title, content }).then((res) => {
+    api.post('/api/home/', { title }).then((res) => {
       if (res.status === 201) {
         alert('Note created successfully');
-        getNote();
+        getChapterList();
       } else {
         alert('Failed to create note');
       }
@@ -52,12 +52,12 @@ function Home() {
   return (
     <div>
       <div>
-        <h2>Notes</h2>
-        {notes.map((note) => (
-          <Note key={note.id} note={note} onDelete={deleteNote} />
+        <h2>Chapters</h2>
+        {chapterList.map((chapter) => (
+          <Chapter key={chapter.id} chapter={chapter} />
         ))}
       </div>
-      <h2>Create a Note</h2>
+      {/* <h2>Create a Note</h2>
       <form onSubmit={createNote}>
         <label htmlFor='title'>Title: </label>
         <br />
@@ -83,7 +83,7 @@ function Home() {
         />
         <br />
         <input type='submit' value='Create Note'></input>
-      </form>
+      </form> */}
     </div>
   );
 }
