@@ -83,6 +83,41 @@ body {
   background-color: #c3bbbb;
 }
 
+.translation-container {
+  background-color: #c3bbbb;
+  padding: 10px 16px;
+  margin: 16px 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  color: #333;
+}
+.translation-content {
+  background-color: #ece3e3;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 10px;
+}
+
+.translation-info {
+  text-align: right;
+}
+
+.like-button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0 0.5rem;
+  height: 32px;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+  border-radius: 50%;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.like-button:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
 @media (min-width: 1200px) {
   .create-translation {
     display: flex;

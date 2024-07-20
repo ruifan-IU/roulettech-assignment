@@ -14,7 +14,9 @@ function NavBar({ setSelectedChapter }) {
   return (
     <>
       <nav>
-        <button onClick={handleBackHome}>Translation Hub</button>
+        <button onClick={handleBackHome} className='nav-button'>
+          Translation Hub
+        </button>
         <ul>
           <li className='welcome-message'>
             <p>Welcome, {user_name}</p>
@@ -22,7 +24,7 @@ function NavBar({ setSelectedChapter }) {
           <li>
             <button
               onClick={() => navigate('/logout')}
-              className='logout-button'
+              className='logout-button nav-button'
             >
               Logout
             </button>

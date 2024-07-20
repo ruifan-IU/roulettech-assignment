@@ -1,6 +1,7 @@
 .body {
   box-sizing: border-box;
 }
+
 nav {
   display: flex;
   justify-content: space-between;
@@ -31,7 +32,7 @@ li {
   margin-left: 16px;
 }
 
-button {
+.nav-button {
   background: none;
   color: inherit;
   border: none;
@@ -43,6 +44,6 @@ button {
   transition: background-color 0.2s ease-in-out;
 }
 
-button:hover {
+.nav-button:hover {
   background-color: #0089b3;
 }
