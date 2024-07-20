@@ -23,7 +23,6 @@ function Form({ type }) {
       const response = await api.post(`/api/${type}/`, formData);
 
       if (type === 'login') {
-        console.log(response.data);
         localStorage.setItem(ACCESS_TOKEN, response.data.access);
         localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
         localStorage.setItem('user_name', response.data.user_name);

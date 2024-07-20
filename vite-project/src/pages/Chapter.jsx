@@ -12,7 +12,6 @@ function Chapter() {
       //fetch chapter data from the server
       api.get(`/api/chapter/${chapterId}`).then((res) => {
         setParagraphs(res.data);
-        console.log(res.data);
       });
     }
     getParagraphs();

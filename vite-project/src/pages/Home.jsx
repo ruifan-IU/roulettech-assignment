@@ -18,7 +18,6 @@ function Home() {
       .then((res) => res.data)
       .then((data) => {
         setChapterList(data);
-        console.log(data);
       })
       .catch((err) => alert(err));
   };

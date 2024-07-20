@@ -16,7 +16,6 @@ function Translations() {
   function getTranslationList() {
     api.get(`/api/paragraph/${paragraphId}`).then((res) => {
       setTranslations(res.data);
-      console.log(res.data);
     });
   }
 

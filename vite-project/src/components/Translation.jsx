@@ -22,6 +22,7 @@ function Translation({ translation }) {
         if (res.status === 200) {
           setLikes(likes + 1);
           setLiked(true);
+          window.location.reload();
         } else {
           alert('Failed to like translation');
         }
@@ -38,6 +39,7 @@ function Translation({ translation }) {
         if (res.status === 200) {
           setLikes(likes - 1);
           setLiked(false);
+          window.location.reload();
         } else {
           alert('Failed to unlike translation');
         }
