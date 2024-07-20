@@ -5,6 +5,10 @@ html {
   background-color: #ece3e3;
 }
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   padding: 0;
@@ -27,11 +31,10 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  width: 150px;
+  width: 10rem;
   height: 100%;
   background-color: #c3bbbb;
   overflow-y: auto;
-  border-right: 1px solid #ccc;
 }
 
 .display-paragraphs {
@@ -76,17 +79,55 @@ body {
   color: #333;
 }
 
-.create-translation {
-  display: flex;
-  position: fixed;
-  bottom: 5px;
-  z-index: 50;
-  width: calc(100% - 48px);
+.original-text {
+  background-color: #c3bbbb;
+}
+
+@media (min-width: 1200px) {
+  .create-translation {
+    display: flex;
+    justify-content: space-evenly;
+    position: fixed;
+    bottom: 5px;
+    right: 24px;
+    z-index: 50;
+    width: calc(100% - 10rem - 24px);
+  }
+
+  .create-translation_textarea {
+    width: 80%;
+  }
+  .create-translation_input {
+    width: 18%;
+  }
+}
+
+@media (max-width: 1200px) {
+  .create-translation {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    position: fixed;
+    bottom: 5px;
+    right: 24px;
+    z-index: 50;
+    width: calc(100% - 10rem - 24px);
+  }
+}
+
+@media (max-width: 700px) {
+  .display-chapters {
+    width: 8rem;
+  }
+
+  .create-translation {
+    width: calc(100% - 8rem - 12px);
+  }
 }
 
 form {
-  /* background-color: whitesmoke; */
-  padding: 20px;
+  background-color: whitesmoke;
+  padding: 10px;
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   /* max-width: 500px; */
@@ -95,7 +136,6 @@ form {
 form h2 {
   color: #333;
   font-size: 24px;
-  margin-bottom: 20px;
 }
 
 form label {
@@ -107,14 +147,14 @@ form input,
 form textarea {
   width: 100%;
   padding: 8px;
-  margin: 8px 0 16px;
+  margin: 8px 0 8px;
   border: 1px solid #ccc;
   border-radius: 4px;
   box-sizing: border-box;
 }
 
 form textarea {
-  height: 50px;
+  height: 60px;
 }
 
 form input[type='submit'] {

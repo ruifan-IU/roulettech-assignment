@@ -35,12 +35,12 @@ function Translations() {
           alert('Failed to create translation');
         }
       });
-    console.log('submitted');
+    setContent('');
   }
 
   return (
     <div>
-      <div className='paragraph-container'>
+      <div className='paragraph-container original-text'>
         <p>{paragraphContent}</p>
       </div>
       {translations.map((translation, index) => (
@@ -53,9 +53,14 @@ function Translations() {
           required
           value={content}
           onChange={(e) => setContent(e.target.value)}
+          className='create-translation_textarea'
         ></textarea>
         <br />
-        <input type='submit' value='Create Translation'></input>
+        <input
+          type='submit'
+          value='Create Translation'
+          className='create-translation_input'
+        ></input>
       </form>
     </div>
   );

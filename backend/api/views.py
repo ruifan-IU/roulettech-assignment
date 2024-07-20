@@ -1,10 +1,13 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from rest_framework import generics
-from .serializers import UserSerializer, NoteSerializer, ChapterSerializer, ParagraphSerializer, TranslationSerializer
+from .serializers import UserSerializer, NoteSerializer, ChapterSerializer, ParagraphSerializer, TranslationSerializer, MyTokenObtainPairSerializer
 from rest_framework.permissions import IsAuthenticated, AllowAny
+from rest_framework_simplejwt.views import TokenObtainPairView
 from .models import Note, Chapter, Paragraph, Translation
 
+class MyTokenObtainPairView(TokenObtainPairView):
+    serializer_class = MyTokenObtainPairSerializer
 
 class NoteListCreate(generics.ListCreateAPIView):
     serializer_class = NoteSerializer

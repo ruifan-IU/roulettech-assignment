@@ -1,5 +1,4 @@
 import { Link } from 'react-router-dom';
-import '../styles/Note.css';
 
 function Paragraph({ paragraph }) {
   return (

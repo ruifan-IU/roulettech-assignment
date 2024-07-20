@@ -16,11 +16,16 @@ function NavBar({ setSelectedChapter }) {
       <nav>
         <button onClick={handleBackHome}>Translation Hub</button>
         <ul>
-          <li>
+          <li className='welcome-message'>
             <p>Welcome, {user_name}</p>
           </li>
           <li>
-            <button onClick={() => navigate('/logout')}>Logout</button>
+            <button
+              onClick={() => navigate('/logout')}
+              className='logout-button'
+            >
+              Logout
+            </button>
           </li>
         </ul>
       </nav>

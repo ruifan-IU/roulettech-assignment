@@ -17,8 +17,13 @@ nav {
 
 ul {
   list-style: none;
-  padding-right: 16px;
   vertical-align: middle;
+}
+
+@media (max-width: 600px) {
+  .welcome-message {
+    display: none;
+  }
 }
 
 li {
@@ -30,8 +35,14 @@ button {
   background: none;
   color: inherit;
   border: none;
-  padding: 0;
+  padding: 0 1rem;
+  height: 64px;
   font: inherit;
   cursor: pointer;
   outline: inherit;
+  transition: background-color 0.2s ease-in-out;
+}
+
+button:hover {
+  background-color: #0089b3;
 }
