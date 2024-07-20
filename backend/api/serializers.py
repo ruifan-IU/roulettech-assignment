@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 from rest_framework import serializers
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer  
-from .models import Note, Chapter, Paragraph, Translation
+from .models import Chapter, Paragraph, Translation
 
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
@@ -22,12 +22,6 @@ class MyTokenObtainPairSerializer(TokenObtainPairSerializer):
         
         return data
 
-class NoteSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Note
-        fields = ["id", "title", "content", "created_at", "author"]
-        extra_kwargs = {"author": {"read_only": True}}
-
 class ChapterSerializer(serializers.ModelSerializer):
     class Meta:
         model = Chapter
@@ -42,7 +36,7 @@ class ParagraphSerializer(serializers.ModelSerializer):
 class TranslationSerializer(serializers.ModelSerializer):
     class Meta:
         model = Translation
-        fields = ["id", "content", "paragraph", "author"]
+        fields = ["id", "content", "paragraph", "author", "likes"]
         extra_kwargs = {"author": {"read_only": True}}
 
     

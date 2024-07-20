@@ -22,5 +22,61 @@
       "content": "子曰：「巧言令色，鮮矣仁！」",
       "chapter": 1
     }
+  },
+  {
+    "model": "api.paragraph",
+    "pk": 4,
+    "fields": {
+      "content": "曾子曰：「吾日三省吾身：為人謀而不忠乎？與朋友交而不信乎？傳不習乎？」",
+      "chapter": 1
+    }
+  },
+  {
+    "model": "api.paragraph",
+    "pk": 5,
+    "fields": {
+      "content": "子曰：「道千乘之國，敬事而信，節用而愛人，使民以時。」",
+      "chapter": 1
+    }
+  },
+  {
+    "model": "api.paragraph",
+    "pk": 6,
+    "fields": {
+      "content": "子曰：「弟子入則孝，出則弟，謹而信，汎愛眾，而親仁。行有餘力，則以學文。」",
+      "chapter": 1
+    }
+  },
+  {
+    "model": "api.paragraph",
+    "pk": 7,
+    "fields": {
+      "content": "子夏曰：「賢賢易色，事父母能竭其力，事君能致其身，與朋友交言而有信。雖曰未學，吾必謂之學矣。」",
+      "chapter": 1
+    }
+  },
+  {
+    "model": "api.paragraph",
+    "pk": 8,
+    "fields": {
+      "content": "子曰：「君子不重則不威，學則不固。主忠信，無友不如己者，過則勿憚改。」",
+      "chapter": 1
+    }
+  },
+  {
+    "model": "api.paragraph",
+    "pk": 9,
+    "fields": {
+      "content": "曾子曰：「慎終追遠，民德彌厚。」",
+      "chapter": 1
+    }
+  },
+  {
+    "model": "api.paragraph",
+    "pk": 10,
+    "fields": {
+      "content": "子禽問於子貢曰：「夫子至於是邦也，必聞其政，求之與？抑與之與？」子貢曰：「夫子溫、良、恭、儉、讓以得之。夫子之求之也，其諸異乎人之求之與？」",
+      "chapter": 1
+    }
   }
 ]

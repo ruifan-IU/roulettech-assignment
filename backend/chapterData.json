@@ -19,5 +19,47 @@
     "fields": {
       "title": "八佾"
     }
+  },
+  {
+    "model": "api.chapter",
+    "pk": 4,
+    "fields": {
+      "title": "里仁"
+    }
+  },
+  {
+    "model": "api.chapter",
+    "pk": 5,
+    "fields": {
+      "title": "公冶長"
+    }
+  },
+  {
+    "model": "api.chapter",
+    "pk": 6,
+    "fields": {
+      "title": "雍也"
+    }
+  },
+  {
+    "model": "api.chapter",
+    "pk": 7,
+    "fields": {
+      "title": "述而"
+    }
+  },
+  {
+    "model": "api.chapter",
+    "pk": 8,
+    "fields": {
+      "title": "泰伯"
+    }
+  },
+  {
+    "model": "api.chapter",
+    "pk": 9,
+    "fields": {
+      "title": "子罕"
+    }
   }
 ]

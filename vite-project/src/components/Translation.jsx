@@ -11,7 +11,7 @@ function Translation({ translation }) {
     translation.likes.includes(parseInt(localStorage.getItem('user_id')))
   );
 
-  const user_id = localStorage.getItem('user_id');
+  const user_id = parseInt(localStorage.getItem('user_id'));
 
   function likeTranslation() {
     api

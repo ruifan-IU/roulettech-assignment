@@ -43,9 +43,11 @@ function Translations() {
       <div className='paragraph-container original-text'>
         <p>{paragraphContent}</p>
       </div>
-      {translations.map((translation, index) => (
-        <Translation key={index} translation={translation} />
-      ))}
+      {translations
+        .sort((a, b) => b.likes.length - a.likes.length)
+        .map((translation, index) => (
+          <Translation key={index} translation={translation} />
+        ))}
       <form onSubmit={createTranslation} className='create-translation'>
         <textarea
           id='content'
