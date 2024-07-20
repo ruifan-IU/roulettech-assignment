@@ -2,7 +2,6 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../api';
 import Translation from '../components/Translation';
-import '../styles/Home.css';
 
 function Translations() {
   const [translations, setTranslations] = useState([]);
@@ -41,11 +40,13 @@ function Translations() {
 
   return (
     <div>
-      <h2>{paragraphContent}</h2>
+      <div className='paragraph-container'>
+        <p>{paragraphContent}</p>
+      </div>
       {translations.map((translation, index) => (
         <Translation key={index} translation={translation} />
       ))}
-      <form onSubmit={createTranslation}>
+      <form onSubmit={createTranslation} className='create-translation'>
         <textarea
           id='content'
           name='content'

@@ -1,12 +1,25 @@
-.note-container {
+.chapter-container {
   padding: 10px;
-  margin: 20px 0;
+  margin: 16px 5px;
   border: 1px solid #ccc;
+  width: 100px;
+  background-color: #c3bbbb;
   border-radius: 5px;
 }
 
-.note-title {
+.chapter-title {
+  font-size: 1.2rem;
+  font-weight: bold;
+  text-align: center;
   color: #333;
+  text-decoration: none;
+}
+
+.paragraph-container {
+  padding: 10px 16px;
+  margin: 16px 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
 }
 
 .note-content {

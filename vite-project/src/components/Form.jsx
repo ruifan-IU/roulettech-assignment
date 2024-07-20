@@ -26,6 +26,9 @@ function Form({ type }) {
         console.log(response.data);
         localStorage.setItem(ACCESS_TOKEN, response.data.access);
         localStorage.setItem(REFRESH_TOKEN, response.data.refresh);
+        localStorage.setItem('user_name', response.data.user_name);
+        localStorage.setItem('user_id', response.data.user_id);
+
         navigate('/');
       } else {
         navigate('/login');

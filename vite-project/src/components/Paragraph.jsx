@@ -3,9 +3,12 @@ import '../styles/Note.css';
 
 function Paragraph({ paragraph }) {
   return (
-    <div className='note-container'>
-      <Link to={`/paragraph/${paragraph.id}/${paragraph.content}/translations`}>
-        <p className='note-title'>{paragraph.content}</p>
+    <div className='paragraph-container'>
+      <Link
+        to={`/paragraph/${paragraph.id}/${paragraph.content}/translations`}
+        className='link'
+      >
+        <p className='paragraph-content'>{paragraph.content}</p>
       </Link>
     </div>
   );

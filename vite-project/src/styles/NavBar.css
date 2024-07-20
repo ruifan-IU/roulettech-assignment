@@ -1,0 +1,37 @@
+.body {
+  box-sizing: border-box;
+}
+nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(30, 162, 202);
+  color: whitesmoke;
+  padding-left: 16px;
+  padding-right: 16px;
+  height: 64px;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+}
+
+ul {
+  list-style: none;
+  padding-right: 16px;
+  vertical-align: middle;
+}
+
+li {
+  display: inline-block;
+  margin-left: 16px;
+}
+
+button {
+  background: none;
+  color: inherit;
+  border: none;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+  outline: inherit;
+}

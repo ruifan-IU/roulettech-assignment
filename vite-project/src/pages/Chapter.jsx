@@ -20,7 +20,7 @@ function Chapter() {
 
   return (
     <div>
-      <h1>{chapterTitle}</h1>
+      {/* <h1 className='chapter-title'>{chapterTitle}</h1> */}
       {paragraphs.map((paragraph, index) => (
         <Paragraph key={index} paragraph={paragraph} />
       ))}
