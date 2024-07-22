@@ -9,9 +9,8 @@ function Translations() {
   const { paragraphId, paragraphContent } = useParams();
 
   useEffect(() => {
-    //fetch translations data from the server
     getTranslationList();
-  }, [paragraphId]);
+  }, []);
 
   function getTranslationList() {
     api.get(`/api/paragraph/${paragraphId}`).then((res) => {
@@ -45,7 +44,11 @@ function Translations() {
       {translations
         .sort((a, b) => b.likes.length - a.likes.length)
         .map((translation, index) => (
-          <Translation key={index} translation={translation} />
+          <Translation
+            key={index}
+            translation={translation}
+            setTranslations={setTranslations}
+          />
         ))}
       <form onSubmit={createTranslation} className='create-translation'>
         <textarea

@@ -4,11 +4,11 @@ import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function Translation({ translation }) {
+function Translation({ translation, setTranslations }) {
   const [user_name, setUser_name] = useState('');
-  const [likes, setLikes] = useState(translation.likes.length);
-  const [liked, setLiked] = useState(
-    translation.likes.includes(parseInt(localStorage.getItem('user_id')))
+  const likes = translation.likes.length;
+  const liked = translation.likes.includes(
+    parseInt(localStorage.getItem('user_id'))
   );
 
   const user_id = parseInt(localStorage.getItem('user_id'));
@@ -20,9 +20,14 @@ function Translation({ translation }) {
       })
       .then((res) => {
         if (res.status === 200) {
-          setLikes(likes + 1);
-          setLiked(true);
-          window.location.reload();
+          setTranslations((prev) => {
+            return prev.map((t) => {
+              if (t.id === translation.id) {
+                return { ...t, likes: [...t.likes, user_id] };
+              }
+              return t;
+            });
+          });
         } else {
           alert('Failed to like translation');
         }
@@ -37,9 +42,14 @@ function Translation({ translation }) {
       })
       .then((res) => {
         if (res.status === 200) {
-          setLikes(likes - 1);
-          setLiked(false);
-          window.location.reload();
+          setTranslations((prev) => {
+            return prev.map((t) => {
+              if (t.id === translation.id) {
+                return { ...t, likes: t.likes.filter((id) => id !== user_id) };
+              }
+              return t;
+            });
+          });
         } else {
           alert('Failed to unlike translation');
         }

@@ -102,6 +102,10 @@ body {
   text-align: right;
 }
 
+.translation-author {
+  margin-right: 8px;
+}
+
 .like-button {
   background: none;
   color: inherit;
@@ -158,6 +162,9 @@ body {
   .create-translation {
     width: calc(100% - 8rem - 12px);
   }
+}
+.translation-likes {
+  color: rgb(220 38 38);
 }
 
 form {
