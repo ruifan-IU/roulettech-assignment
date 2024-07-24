@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import api from '../api';
 import Translation from '../components/Translation';
+import InputForm from '../components/InputForm';
 
 function Translations() {
   const [translations, setTranslations] = useState([]);
@@ -18,8 +19,7 @@ function Translations() {
     });
   }
 
-  function createTranslation(e) {
-    e.preventDefault();
+  function createTranslation(content) {
     api
       .post(`/api/paragraph/${paragraphId}`, {
         content,
@@ -33,7 +33,6 @@ function Translations() {
           alert('Failed to create translation');
         }
       });
-    setContent('');
   }
 
   return (
@@ -50,22 +49,7 @@ function Translations() {
             setTranslations={setTranslations}
           />
         ))}
-      <form onSubmit={createTranslation} className='create-translation'>
-        <textarea
-          id='content'
-          name='content'
-          required
-          value={content}
-          onChange={(e) => setContent(e.target.value)}
-          className='create-translation_textarea'
-        ></textarea>
-        <br />
-        <input
-          type='submit'
-          value='Create Translation'
-          className='create-translation_input'
-        ></input>
-      </form>
+      <InputForm createTranslation={createTranslation} />
     </div>
   );
 }
