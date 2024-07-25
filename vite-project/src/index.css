@@ -122,6 +122,11 @@ body {
 .like-button:hover {
   background-color: rgba(0, 0, 0, 0.1);
 }
+
+.translation-page {
+  height: 100%;
+}
+
 @media (min-width: 1200px) {
   .create-translation {
     display: flex;
@@ -131,6 +136,11 @@ body {
     right: 24px;
     z-index: 50;
     width: calc(100% - 10rem - 24px);
+  }
+
+  .display-translations {
+    height: calc(100% - 96px);
+    overflow-y: auto;
   }
 
   .create-translation_textarea {
@@ -151,6 +161,11 @@ body {
     right: 24px;
     z-index: 50;
     width: calc(100% - 10rem - 24px);
+  }
+
+  .display-translations {
+    height: calc(100% - 169px);
+    overflow-y: auto;
   }
 }
 

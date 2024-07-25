@@ -36,19 +36,21 @@ function Translations() {
   }
 
   return (
-    <div>
-      <div className='paragraph-container original-text'>
-        <p>{paragraphContent}</p>
+    <div className='translation-page'>
+      <div className='display-translations'>
+        <div className='paragraph-container original-text'>
+          <p>{paragraphContent}</p>
+        </div>
+        {translations
+          .sort((a, b) => b.likes.length - a.likes.length)
+          .map((translation, index) => (
+            <Translation
+              key={index}
+              translation={translation}
+              setTranslations={setTranslations}
+            />
+          ))}
       </div>
-      {translations
-        .sort((a, b) => b.likes.length - a.likes.length)
-        .map((translation, index) => (
-          <Translation
-            key={index}
-            translation={translation}
-            setTranslations={setTranslations}
-          />
-        ))}
       <InputForm createTranslation={createTranslation} />
     </div>
   );

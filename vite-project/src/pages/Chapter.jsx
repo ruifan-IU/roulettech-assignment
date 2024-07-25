@@ -5,7 +5,7 @@ import Paragraph from '../components/Paragraph';
 
 function Chapter() {
   const [paragraphs, setParagraphs] = useState([]);
-  const { chapterId, chapterTitle } = useParams();
+  const { chapterId } = useParams();
 
   useEffect(() => {
     function getParagraphs() {
