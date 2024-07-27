@@ -51,3 +51,8 @@ class GetUserView(generics.RetrieveAPIView):
 class UpdateTranslation(generics.RetrieveUpdateAPIView):
     queryset = Translation.objects.all()
     serializer_class = TranslationSerializer
+    
+class DeleteTranslation(generics.DestroyAPIView):
+    queryset = Translation.objects.all()
+    serializer_class = TranslationSerializer
+    permission_classes = [IsAuthenticated]

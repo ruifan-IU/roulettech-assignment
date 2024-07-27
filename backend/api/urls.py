@@ -7,5 +7,6 @@ urlpatterns = [
     path("paragraph/<int:paragraph_pk>", views.TranslationListCreate.as_view(), name="translation-list"),
     path("user/<pk>", views.GetUserView.as_view(), name="get-user"),
     path("translation/<int:pk>", views.UpdateTranslation.as_view(), name="translation-update"),
+    path("translation/delete/<int:pk>", views.DeleteTranslation.as_view(), name="translation-delete"),
 ]
 
