@@ -10,6 +10,8 @@ function Translation({ translation, setTranslations }) {
   const liked = translation.likes.includes(
     parseInt(localStorage.getItem('user_id'))
   );
+  const ownTranslation =
+    translation.author === parseInt(localStorage.getItem('user_id'));
 
   const user_id = parseInt(localStorage.getItem('user_id'));
 
@@ -57,6 +59,18 @@ function Translation({ translation, setTranslations }) {
       .catch((err) => alert(err));
   }
 
+  const deleteTranslation = () => {
+    api.delete(`/api/translation/delete/${translation.id}`).then((res) => {
+      if (res.status === 204) {
+        setTranslations((prev) => {
+          return prev.filter((t) => t.id !== translation.id);
+        });
+      } else {
+        alert('Failed to delete translation');
+      }
+    });
+  };
+
   useEffect(() => {
     api
       .get(`/api/user/${translation.author}`)
@@ -89,6 +103,11 @@ function Translation({ translation, setTranslations }) {
           )}
         </button>
         <span className='translation-likes'>{likes}</span>
+        {ownTranslation && (
+          <button onClick={deleteTranslation} className='delete-button'>
+            Delete
+          </button>
+        )}
       </div>
     </div>
   );
