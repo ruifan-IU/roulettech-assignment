@@ -6,7 +6,6 @@ import InputForm from '../components/InputForm';
 
 function Translations() {
   const [translations, setTranslations] = useState([]);
-  const [content, setContent] = useState('');
   const { paragraphId, paragraphContent } = useParams();
 
   useEffect(() => {
