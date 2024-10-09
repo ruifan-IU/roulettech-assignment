@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import api from '../api';
 import NavBar from '../components/NavBar';
@@ -7,18 +7,12 @@ import LoadingIndicator from '../components/LoadingIndicator';
 import { useQuery } from '@tanstack/react-query';
 
 function Home() {
-  // const [chapterList, setChapterList] = useState([]);
   const [selectedChapter, setSelectedChapter] = useState(null);
-
-  // useEffect(() => {
-  //   getChapterList();
-  // }, []);
 
   const getChapterList = async () => {
     try {
       const res = await api.get('/api/home/');
       const data = res.data;
-      // setChapterList(data);
       return data;
     } catch (err) {
       alert(err);

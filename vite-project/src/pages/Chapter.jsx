@@ -1,25 +1,36 @@
-import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import api from '../api';
 import Paragraph from '../components/Paragraph';
 
 function Chapter() {
-  const [paragraphs, setParagraphs] = useState([]);
   const { chapterId } = useParams();
 
-  useEffect(() => {
-    function getParagraphs() {
-      //fetch chapter data from the server
-      api.get(`/api/chapter/${chapterId}`).then((res) => {
-        setParagraphs(res.data);
-      });
+  const getParagraphs = async () => {
+    //fetch chapter data from the server
+    try {
+      const res = await api.get(`/api/chapter/${chapterId}`);
+      console.log(res.data);
+      return res.data;
+    } catch (err) {
+      alert(err);
     }
-    getParagraphs();
-  }, [chapterId]);
+  };
+
+  const {
+    isLoading,
+    error,
+    data: paragraphs,
+  } = useQuery({
+    queryKey: ['paragraphs', chapterId],
+    queryFn: getParagraphs,
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div>
-      {/* <h1 className='chapter-title'>{chapterTitle}</h1> */}
       {paragraphs.map((paragraph, index) => (
         <Paragraph key={index} paragraph={paragraph} />
       ))}
