@@ -1,63 +1,56 @@
 import { useState, useEffect } from 'react';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../api';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-function Translation({ translation, setTranslations }) {
+function Translation({ translation }) {
   const [user_name, setUser_name] = useState('');
   const likes = translation.likes.length;
-  const liked = translation.likes.includes(
-    parseInt(localStorage.getItem('user_id'))
-  );
-  const ownTranslation =
-    translation.author === parseInt(localStorage.getItem('user_id'));
 
   const user_id = parseInt(localStorage.getItem('user_id'));
+  const liked = translation.likes.includes(user_id);
 
-  function likeTranslation() {
-    api
-      .patch(`/api/translation/${translation.id}`, {
-        likes: [...translation.likes, user_id],
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          setTranslations((prev) => {
-            return prev.map((t) => {
-              if (t.id === translation.id) {
-                return { ...t, likes: [...t.likes, user_id] };
-              }
-              return t;
-            });
-          });
-        } else {
-          alert('Failed to like translation');
-        }
-      })
-      .catch((err) => alert(err));
-  }
+  const ownTranslation = translation.author === user_id;
 
-  function unlikeTranslation() {
-    api
-      .patch(`/api/translation/${translation.id}`, {
-        likes: translation.likes.filter((id) => id !== user_id),
-      })
-      .then((res) => {
-        if (res.status === 200) {
-          setTranslations((prev) => {
-            return prev.map((t) => {
-              if (t.id === translation.id) {
-                return { ...t, likes: t.likes.filter((id) => id !== user_id) };
-              }
-              return t;
-            });
-          });
-        } else {
-          alert('Failed to unlike translation');
-        }
-      })
-      .catch((err) => alert(err));
-  }
+  const queryClient = useQueryClient();
+
+  const likeTranslation = async () => {
+    const res = await api.patch(`/api/translation/${translation.id}`, {
+      likes: [...translation.likes, user_id],
+    });
+    return res;
+  };
+
+  const likeMutation = useMutation({
+    mutationFn: likeTranslation,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['translations', translation.paragraph]);
+    },
+  });
+
+  const handleLike = () => {
+    likeMutation.mutate();
+  };
+
+  const unlikeTranslation = async () => {
+    const res = await api.patch(`/api/translation/${translation.id}`, {
+      likes: translation.likes.filter((id) => id !== user_id),
+    });
+    return res;
+  };
+
+  const unlikeMutation = useMutation({
+    mutationFn: unlikeTranslation,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['translations', translation.paragraph]);
+    },
+  });
+
+  const handleUnlike = () => {
+    unlikeMutation.mutate();
+  };
 
   const deleteTranslation = () => {
     api.delete(`/api/translation/delete/${translation.id}`).then((res) => {
@@ -87,7 +80,7 @@ function Translation({ translation, setTranslations }) {
       <div className='translation-info'>
         <span className='translation-author'> -by {user_name} </span>
         <button
-          onClick={liked ? unlikeTranslation : likeTranslation}
+          onClick={liked ? handleUnlike : handleLike}
           className='like-button'
         >
           {liked ? (

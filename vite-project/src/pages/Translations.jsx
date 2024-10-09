@@ -1,38 +1,60 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
+import { useQuery } from '@tanstack/react-query';
 import api from '../api';
 import Translation from '../components/Translation';
 import InputForm from '../components/InputForm';
 
 function Translations() {
-  const [translations, setTranslations] = useState([]);
+  // const [translations, setTranslations] = useState([]);
   const { paragraphId, paragraphContent } = useParams();
 
-  useEffect(() => {
-    getTranslationList();
-  }, []);
+  // useEffect(() => {
+  //   getTranslationList();
+  // }, []);
 
-  function getTranslationList() {
-    api.get(`/api/paragraph/${paragraphId}`).then((res) => {
-      setTranslations(res.data);
-    });
-  }
+  // function getTranslationList() {
+  //   api.get(`/api/paragraph/${paragraphId}`).then((res) => {
+  //     setTranslations(res.data);
+  //   });
+  // }
 
-  function createTranslation(content) {
-    api
-      .post(`/api/paragraph/${paragraphId}`, {
-        content,
-        paragraph: paragraphId,
-      })
-      .then((res) => {
-        if (res.status === 201) {
-          alert('Translation created successfully');
-          getTranslationList();
-        } else {
-          alert('Failed to create translation');
-        }
-      });
-  }
+  const getTranslationList = async () => {
+    try {
+      const res = await api.get(`/api/paragraph/${paragraphId}`);
+      return res.data;
+    } catch (err) {
+      alert(err);
+    }
+  };
+
+  const {
+    isLoading,
+    error,
+    data: translations,
+  } = useQuery({
+    queryKey: ['translations', paragraphId],
+    queryFn: getTranslationList,
+  });
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
+
+  // function createTranslation(content) {
+  //   api
+  //     .post(`/api/paragraph/${paragraphId}`, {
+  //       content,
+  //       paragraph: paragraphId,
+  //     })
+  //     .then((res) => {
+  //       if (res.status === 201) {
+  //         alert('Translation created successfully');
+  //         getTranslationList();
+  //       } else {
+  //         alert('Failed to create translation');
+  //       }
+  //     });
+  // }
 
   return (
     <div className='translation-page'>
@@ -46,11 +68,11 @@ function Translations() {
             <Translation
               key={index}
               translation={translation}
-              setTranslations={setTranslations}
+              // setTranslations={setTranslations}
             />
           ))}
       </div>
-      <InputForm createTranslation={createTranslation} />
+      {/* <InputForm createTranslation={createTranslation} /> */}
     </div>
   );
 }
