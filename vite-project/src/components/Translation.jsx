@@ -1,12 +1,11 @@
 import { useState, useEffect } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import api from '../api';
 import { faHeart } from '@fortawesome/free-solid-svg-icons';
 import { faHeart as farHeart } from '@fortawesome/free-regular-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 function Translation({ translation }) {
-  const [user_name, setUser_name] = useState('');
   const likes = translation.likes.length;
 
   const user_id = parseInt(localStorage.getItem('user_id'));
@@ -52,27 +51,31 @@ function Translation({ translation }) {
     unlikeMutation.mutate();
   };
 
-  const deleteTranslation = () => {
-    api.delete(`/api/translation/delete/${translation.id}`).then((res) => {
-      if (res.status === 204) {
-        setTranslations((prev) => {
-          return prev.filter((t) => t.id !== translation.id);
-        });
-      } else {
-        alert('Failed to delete translation');
-      }
-    });
+  const deleteTranslation = async () => {
+    const res = await api.delete(`/api/translation/delete/${translation.id}`);
+    return res;
   };
 
-  useEffect(() => {
-    api
-      .get(`/api/user/${translation.author}`)
-      .then((res) => res.data)
-      .then((data) => {
-        setUser_name(data.username);
-      })
-      .catch((err) => alert(err));
-  }, [translation]);
+  const deleteMutation = useMutation({
+    mutationFn: deleteTranslation,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['translations', translation.paragraph]);
+    },
+  });
+
+  const handleDelete = () => {
+    deleteMutation.mutate();
+  };
+
+  const getUserName = async () => {
+    const res = await api.get(`/api/user/${translation.author}`);
+    return res.data.username;
+  };
+
+  const { data: user_name } = useQuery({
+    queryKey: ['user_name', translation.author],
+    queryFn: getUserName,
+  });
 
   return (
     <div className='translation-container'>
@@ -97,7 +100,7 @@ function Translation({ translation }) {
         </button>
         <span className='translation-likes'>{likes}</span>
         {ownTranslation && (
-          <button onClick={deleteTranslation} className='delete-button'>
+          <button onClick={handleDelete} className='delete-button'>
             Delete
           </button>
         )}

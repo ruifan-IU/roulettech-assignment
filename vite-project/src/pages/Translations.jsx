@@ -6,18 +6,7 @@ import Translation from '../components/Translation';
 import InputForm from '../components/InputForm';
 
 function Translations() {
-  // const [translations, setTranslations] = useState([]);
   const { paragraphId, paragraphContent } = useParams();
-
-  // useEffect(() => {
-  //   getTranslationList();
-  // }, []);
-
-  // function getTranslationList() {
-  //   api.get(`/api/paragraph/${paragraphId}`).then((res) => {
-  //     setTranslations(res.data);
-  //   });
-  // }
 
   const getTranslationList = async () => {
     try {
@@ -65,11 +54,7 @@ function Translations() {
         {translations
           .sort((a, b) => b.likes.length - a.likes.length)
           .map((translation, index) => (
-            <Translation
-              key={index}
-              translation={translation}
-              // setTranslations={setTranslations}
-            />
+            <Translation key={index} translation={translation} />
           ))}
       </div>
       {/* <InputForm createTranslation={createTranslation} /> */}
