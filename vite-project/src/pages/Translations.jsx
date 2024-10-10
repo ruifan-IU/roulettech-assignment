@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import api from '../api';
@@ -18,32 +17,24 @@ function Translations() {
   };
 
   const {
-    isLoading,
-    error,
+    // isLoading,
+    // error,
     data: translations,
   } = useQuery({
     queryKey: ['translations', paragraphId],
     queryFn: getTranslationList,
   });
 
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
+  const createTranslation = async (content) => {
+    const res = await api.post(`/api/paragraph/${paragraphId}`, {
+      content,
+      paragraph: paragraphId,
+    });
+    return res;
+  };
 
-  // function createTranslation(content) {
-  //   api
-  //     .post(`/api/paragraph/${paragraphId}`, {
-  //       content,
-  //       paragraph: paragraphId,
-  //     })
-  //     .then((res) => {
-  //       if (res.status === 201) {
-  //         alert('Translation created successfully');
-  //         getTranslationList();
-  //       } else {
-  //         alert('Failed to create translation');
-  //       }
-  //     });
-  // }
+  // if (isLoading) return <div>Loading...</div>;
+  // if (error) return <div>Error: {error.message}</div>;
 
   return (
     <div className='translation-page'>
@@ -51,13 +42,14 @@ function Translations() {
         <div className='paragraph-container original-text'>
           <p>{paragraphContent}</p>
         </div>
-        {translations
-          .sort((a, b) => b.likes.length - a.likes.length)
-          .map((translation, index) => (
-            <Translation key={index} translation={translation} />
-          ))}
+        {translations &&
+          translations
+            .sort((a, b) => b.likes.length - a.likes.length)
+            .map((translation, index) => (
+              <Translation key={index} translation={translation} />
+            ))}
       </div>
-      {/* <InputForm createTranslation={createTranslation} /> */}
+      <InputForm createTranslation={createTranslation} />
     </div>
   );
 }

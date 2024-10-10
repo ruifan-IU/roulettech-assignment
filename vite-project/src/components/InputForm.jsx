@@ -1,16 +1,27 @@
 import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 function InputForm({ createTranslation }) {
   const [content, setContent] = useState('');
+  const { paragraphId } = useParams();
+  const queryClient = useQueryClient();
 
-  function onSubmit(e) {
+  const postMutation = useMutation({
+    mutationFn: createTranslation,
+    onSuccess: () => {
+      queryClient.invalidateQueries(['translations', paragraphId]);
+    },
+  });
+
+  const onCreateTranslation = (e) => {
     e.preventDefault();
-    createTranslation(content);
+    postMutation.mutate(content);
     setContent('');
-  }
+  };
 
   return (
-    <form onSubmit={onSubmit} className='create-translation'>
+    <form onSubmit={onCreateTranslation} className='create-translation'>
       <textarea
         id='content'
         name='content'
